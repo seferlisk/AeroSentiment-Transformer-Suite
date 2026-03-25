@@ -46,4 +46,4 @@ class DataManager:
             tokenizer=self.tokenizer,
             max_len=self.max_len
         )
-        return DataLoader(dataset, batch_size=self.batch_size, num_workers=2)
+        return DataLoader(dataset, batch_size=self.batch_size, num_workers=0)
