@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 from tqdm import tqdm
@@ -71,3 +72,27 @@ class SentimentTrainer:
         avg_acc = correct_predictions / len(loader.dataset)
         avg_loss = sum(losses) / len(loader)
         return avg_acc, avg_loss
+
+    def save_model(self, filename: str):
+        """
+        Saves the model weights to the 'outputs' folder in the project root.
+
+        Args:
+            filename (str): Name of the file (e.g., 'distilbert_airline.pt')
+        """
+        # Find the root directory relative to this file (src/training/trainer.py)
+        # One level up is src/, two levels up is the project root
+        current_file_dir = os.path.dirname(os.path.abspath(__file__))
+        root_dir = os.path.abspath(os.path.join(current_file_dir, "../../"))
+        save_path = os.path.join(root_dir, "outputs")
+
+        # Create the directory if it doesn't exist
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+            print(f"Created directory: {save_path}")
+
+        full_path = os.path.join(save_path, filename)
+
+        # Save only the state dictionary
+        torch.save(self.model.state_dict(), full_path)
+        print(f"Model successfully saved to: {full_path}")
