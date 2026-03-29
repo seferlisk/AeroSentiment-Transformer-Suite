@@ -5,7 +5,7 @@ class FineTuningManager:
     Handles freezing/unfreezing logic for Transformer layers.
     """
     @staticmethod
-    def freeze_backbone(model):
+    def freeze_entire_backbone(model):
         """Freezes all layers in the transformer backbone."""
         for param in model.backbone.parameters():
             param.requires_grad = False
