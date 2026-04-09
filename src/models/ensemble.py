@@ -1,7 +1,7 @@
 import torch
 
 class SentimentEnsemble:
-    def __init__(self, model_db, model_mini, classes, weights=[0.6, 0.4]):
+    def __init__(self, model_db, model_mini, classes, weights=None):
         """
         Initializes the ensemble with two models and their respective weights.
 
@@ -11,9 +11,11 @@ class SentimentEnsemble:
             classes (list): List of class names (e.g., ['negative', 'neutral', 'positive']).
             weights (list): Weighting for [DistilBERT, MiniLM].
         """
+        if weights is None:
+            weights = [0.6, 0.4]
         self.model_db = model_db
         self.model_mini = model_mini
-        self.classes = classes  # FIX: Store classes as an attribute
+        self.classes = classes
         self.weights = weights
 
     def predict(self, text, tokenizer_db, tokenizer_mini, device):
@@ -37,7 +39,3 @@ class SentimentEnsemble:
         inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True).to(device)
         with torch.no_grad():
             return model(inputs['input_ids'], inputs['attention_mask'])
-
-# Usage:
-# ensemble = SentimentEnsemble(model, minilm_model, classes=['negative', 'neutral', 'positive'])
-# result = ensemble.predict("The service was okay, but the flight was late.", tokenizer, m_tokenizer, DEVICE)
