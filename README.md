@@ -34,8 +34,8 @@ SkySent is a modular, object-oriented machine learning pipeline designed to clas
 ### Clone the repository:
 ```
 Bash
-git clone [https://github.com/yourusername/skysent.git](https://github.com/yourusername/skysent.git)
-cd skysent
+git clone [https://github.com/seferlisk/AeroSentiment-Transformer-Suite.git](https://github.com/seferlisk/AeroSentiment-Transformer-Suite.git)
+cd AeroSentiment-Transformer-Suite
 ```
 
 ### Install dependencies:
